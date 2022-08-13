@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
 <body>
@@ -54,15 +55,23 @@
         // 상품 가격
         const productPrice = document.createElement('div')
         productPrice.classList.add('product-price')
-        productPrice.innerText = item.price
+        const productPriceText = document.createElement('strong')
+        productPriceText.classList.add('price','m-price')
+        productPriceText.innerText = item.price
 
         productList.appendChild(productItem)
         productItem.appendChild(productImgContainer)
         productImgContainer.appendChild(productImg)
         productItem.appendChild(productName)
-        productList.appendChild(likeBtn)
-        productList.appendChild(productPrice)
+        productItem.appendChild(likeBtn)
+        productItem.appendChild(productPrice)
+        productPrice.appendChild(productPriceText)
       })
+      const cart = document.createElement('a')
+      cart.classList.add('link-btn','cart-link')
+      cart.innerText='Cart'
+      mainElement.append(cart)
+
       root.append(mainElement)
     })
   </script>
