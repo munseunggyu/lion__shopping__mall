@@ -9,7 +9,62 @@
 <body>
   <div id="root"></div>
   <script>
-    const root = document.getElementById('root');
+    const root = document.getElementById('root')
+
+    async function getProductData(){
+      const response = await fetch('http://test.api.weniv.co.kr/mall')
+      const porduct = await response.json()
+      return porduct
+    }
+    getProductData().then(product =>{
+      const mainElement = document.createElement('main')
+      mainElement.classList.add('product')
+
+      const productPageHeader = document.createElement('h1')
+      productPageHeader.innerText = '상품목록 페이지'
+      productPageHeader.classList.add('ir')
+      mainElement.appendChild(productPageHeader)
+      const productList = document.createElement('ul')
+      productList.classList.add('product-list')
+      mainElement.appendChild(productList)
+
+      product.forEach(item => {
+        const productDetailLink = document.createElement('a')
+        productDetailLink.href = `/detail/${item.id}`
+        console.log(item)
+        const productItem = document.createElement('li')
+        productItem.classList.add('product-item')
+
+        // 상품 이미지
+        const productImgContainer = document.createElement('div')
+        productImgContainer.classList.add('product-img')
+        const productImg = document.createElement('img')
+        productImg.src = `http://test.api.weniv.co.kr/${item.thumbnailImg}`
+        
+        // 상품 이름
+        const productName = document.createElement('strong')
+        productName.classList.add('product-name','sl-ellipsis')
+        productName.innerText = item.productName;
+
+        // 좋아요 버튼
+        const likeBtn = document.createElement('button')
+        likeBtn.classList.add('like-btn')
+        likeBtn.innerText = '❤️'
+
+        // 상품 가격
+        const productPrice = document.createElement('div')
+        productPrice.classList.add('product-price')
+        productPrice.innerText = item.price
+
+        productList.appendChild(productItem)
+        productItem.appendChild(productImgContainer)
+        productImgContainer.appendChild(productImg)
+        productItem.appendChild(productName)
+        productList.appendChild(likeBtn)
+        productList.appendChild(productPrice)
+      })
+      root.append(mainElement)
+    })
   </script>
 </body>
 </html>
